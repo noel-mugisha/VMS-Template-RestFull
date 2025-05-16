@@ -1,0 +1,48 @@
+Step 1-Database schema:
+-- Create the database
+CREATE DATABASE rta_vehicle_system;
+
+-- Use the database
+USE rta_vehicle_system;
+
+-- Create users table with the provided schema
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Create vehicles table with updated schema (no inspection_date)
+CREATE TABLE IF NOT EXISTS vehicles (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  plate_number VARCHAR(10) NOT NULL UNIQUE,
+  manufacturer VARCHAR(100) NOT NULL,
+  model VARCHAR(100) NOT NULL,
+  year INT NOT NULL,
+  status ENUM('valid', 'expired') NOT NULL DEFAULT 'valid',
+  user_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Create test users (passwords will be hashed in the actual application)
+INSERT INTO users (first_name, last_name, email, password)
+VALUES 
+  ('Test', 'User1', 'test1@example.com', 'password1'),
+  ('Test', 'User2', 'test2@example.com', 'password2');
+
+
+
+Step2: Setting up env
+npm init -y,
+npm install express mysql2 bcrypt jsonwebtoken cors dotenv express-validator swagger-ui-express swagger-jsdoc
+npm install nodemon --save-dev
+
+
+Step3: Generating a random JWT_SECRET_Key use git bash
+openssl rand -base64 32
