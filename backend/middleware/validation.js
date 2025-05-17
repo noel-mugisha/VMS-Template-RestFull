@@ -6,9 +6,9 @@ const { body, validationResult, param } = require('express-validator');
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({
-      success: false,
-      errors: errors.array()
+    return res.status(400).json({ 
+      success: false, 
+      errors: errors.array() 
     });
   }
   next();
@@ -35,8 +35,28 @@ const loginValidation = [
 ];
 
 /**
+ * Validation rules for updating user profile
+ */
+const updateProfileValidation = [
+  body('first_name').notEmpty().withMessage('First name is required'),
+  body('last_name').notEmpty().withMessage('Last name is required'),
+  body('email').isEmail().withMessage('Please provide a valid email'),
+  validate
+];
+
+/**
+ * Validation rules for changing password
+ */
+const changePasswordValidation = [
+  body('current_password').notEmpty().withMessage('Current password is required'),
+  body('new_password')
+    .isLength({ min: 6 }).withMessage('New password must be at least 6 characters long')
+    .notEmpty().withMessage('New password is required'),
+  validate
+];
+
+/**
  * Validation rules for creating/updating a vehicle
- * Note: Removed inspection_date validation
  */
 const vehicleValidation = [
   body('plate_number')
@@ -64,6 +84,8 @@ const validateVehicleId = [
 module.exports = {
   registerValidation,
   loginValidation,
+  updateProfileValidation,
+  changePasswordValidation,
   vehicleValidation,
   validateVehicleId
 };
