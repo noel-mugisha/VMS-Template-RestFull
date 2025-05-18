@@ -1,0 +1,34 @@
+STEP 1: Dependencies
+# Install UI components and utilities
+npm install @radix-ui/react-alert-dialog @radix-ui/react-dropdown-menu @radix-ui/react-label @radix-ui/react-radio-group @radix-ui/react-select @radix-ui/react-separator @radix-ui/react-slot @radix-ui/react-tabs @radix-ui/react-toast
+
+# Install form validation libraries
+npm install react-hook-form @hookform/resolvers zod
+
+# Install UI utilities
+npm install class-variance-authority clsx tailwind-merge
+
+# Install icons
+npm install lucide-react
+
+STEP2 : Create Folders
+# Create app directory structure
+mkdir -p app/(auth)/login
+mkdir -p app/(auth)/signup
+mkdir -p app/dashboard/profile
+mkdir -p app/dashboard/vehicles/add
+mkdir -p app/dashboard/vehicles/edit/[id]
+mkdir -p app/api
+
+# Create components directory structure
+mkdir -p components/auth
+mkdir -p components/dashboard
+mkdir -p components/layout
+mkdir -p components/profile
+mkdir -p components/ui
+mkdir -p components/vehicles
+
+# Create lib and types directories
+mkdir -p lib
+mkdir -p types
+
